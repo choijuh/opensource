@@ -152,3 +152,58 @@
 |**fg**|백그라운드 또는 일시 중지된 작업을 포그라운드로 전환|
 |**bg**|일시 중지된 작업을 백그라운드에서 다시 실행|
 |**kill**|특정 작업을 종료특정 작업을 종료|
+
+# KILL 명령어
++ **프로세스를 종료할 때 사용하는 리눅스 명령어**
++ **주로 프로세스 ID(PID)를 이용**하여 프로세스를 식별한 후 종료를 시도하며, **시그널(signal)을 이용**해 다양한 방식으로 종료를 처리할 수 있음
++ **kill [옵션] PID**
++ PID는 **프로세스 ID**로, **종료할 프로세스를 식별하는 숫자**
++ 옵션을 통해 특정한 시그널을 보낼 수 있으며, **기본적으로 SIGTERM(15번 시그널)이 사용**
+
+### 주요 시그널
+|항목|설명|
+|--|----|
+|**SIGTERM(15)**|프로세스에게 정상적으로 종료하도록 요청|
+|**SIGKILL(9)**|: 즉시 프로세스를 강제 종료. 프로세스가 응답하지 않거나 종료되지 않을 때 사용|
+|**SIGHUP(1)**|프로세스를 재시작하거나 종료하는 데 사용|
+
+### 예시
+1. ps 명령어로 프로세스 확인
++ ps 명령어로 프로세스를 확인하고 PID를 얻을 수 있음
+<img width="593" height="156" alt="image" src="https://github.com/user-attachments/assets/20f18387-5461-4580-a4dc-7f91187546d8" />
+
++ python3 프로세스의 PID는 5678이다.
+
+2. SIGTERM으로 프로세스 종료
+<img width="595" height="61" alt="image" src="https://github.com/user-attachments/assets/1ac4cf5a-3a65-4e38-9045-1162619f4874" />
+
++ 5678 PID를 가진 python3 프로세스에게 SIGTERM(15) 시그널을 보내 정상 종료를 요청
++ 정상 종료하도록 유도하지만, 프로세스가 이를 무시하거나 응답하지 않을 수 있음
+
+3. SIGKILL로 강제 종료
+<img width="593" height="59" alt="image" src="https://github.com/user-attachments/assets/dd040a7d-b96d-492d-b2f5-e490fc8ad84f" />
+
++ SIGKILL(9) 시그널을 보내 python3 프로세스를 즉시 강제 종료
++ 프로세스가 응답하지 않을 때 유용하며, 해당 프로세스는 강제로 메모리에서 제거
+
+4. SIGHUP으로 프로세스 재시작
+<img width="591" height="60" alt="image" src="https://github.com/user-attachments/assets/7ecb30dd-f943-4f87-b0cc-c38b1d0ca93b" />
+
++ SIGHUP(1) 시그널은 bash 셸을 다시 로드하거나 재시작하도록 유도하는 데 사용
++ 셸이나 데몬 프로세스에 주로 사용되며, 설정 파일을 다시 읽어오는 등의 역할
+
+5. 모든 프로세스 종료
+<img width="594" height="60" alt="image" src="https://github.com/user-attachments/assets/3780de3d-8670-4166-8790-39985bc774c2" />
+
++ 모든 프로세스를 종료하는 것은 PID 1을 제외한 프로세스에 사용될 수 있으며, 프로세스 그룹을 종료하거나 사용자의 모든 프로세스를 종료하는 데 유용
++ 현재 로그인한 사용자의 모든 프로세스를 종료합니다. 매우 위험한 명령이므로 신중하게 사용
+
+6. 프로세스 그룹 종료
+<img width="594" height="60" alt="image" src="https://github.com/user-attachments/assets/80667c0f-2344-4805-9224-32885979e385" />
+
++ 1234와 같은 음수 PID는 해당 프로세스 그룹에 있는 모든 프로세스에 시그널을 보냄
++ 이 경우 1234 PID가 속한 프로세스 그룹 전체가 종료
+
+##### 프로세스 강제 종료 주의 사항
++ SIGKILL(9) 시그널은 프로세스를 강제 종료하기 때문에, 데이터 손실이나 파일 손상이 발생할 수 있음
++ 항상 SIGTERM(15) 시그널로 먼저 프로세스를 종료하고, 응답이 없는 경우에만 SIGKILL을 사용하는 것이 좋음
