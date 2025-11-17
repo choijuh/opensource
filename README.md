@@ -1,4 +1,4 @@
-<img width="738" height="416" alt="img1 daumcdn" src="https://github.com/user-attachments/assets/ea11fffc-4b8f-47c2-8111-b372c2d09977" /># 과제#2
+# 과제#2
 
 # TOP 명령어
 + **top 명령어는 현재 OS의 상태를 나타내주는 CLI 어플리케이션**
