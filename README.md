@@ -71,9 +71,9 @@
 |**H**|도움말 표시|
 
 # PS 명령어
-+ ps 명령어는 Process Status의 줄임말로 말 그대로 프로세스 상태 등을 확인 할 수 있음
++ ps 명령어는 Process Status의 줄임말로 말 그대로 **프로세스 상태 등을 확인** 할 수 있음
 + $ps [option]
-+ ps 명령을 사용하면 현재 실행중인 프로세스들과 상태를 출력
++ **ps 명령을 사용하면 현재 실행중인 프로세스들과 상태를 출력**
 + ps 명령어는 스냅샷으로 명령어를 입력한 시점을 보여주기 때문에, 실시간으로 프로세스 정보를 보고 싶다면 top 명령어를 사용하면 됨
 + ps 명령어는 UNIX, BSD, GNU 환경에 따라 결과가 다르고 표기법에도 차이가 있음. UNIX 계열은 dash("-")를 사용하고, BSD 계열은 dash를 사용하지 않음. GNU 계열은 두 개의 dash("--")를 사용함
 <img width="531" height="396" alt="img1 daumcdn" src="https://github.com/user-attachments/assets/e1258fcb-e59c-4464-a71b-ec7a1656b2c3" />
@@ -91,8 +91,8 @@
 |**x(BSD 계열)**|a 옵션과 결합하여 모든 프로세스를 출력|
 
 ### 예시
-1. ps -ef
-+ ps -ef 명령어를 사용하면 실행중인 모든 프로세스를 풀 포맷으로 출력
+1. **ps -ef**
++ ps -ef 명령어를 사용하면 **실행중인 모든 프로세스를 풀 포맷으로 출력**
 <img width="738" height="416" alt="img1 daumcdn" src="https://github.com/user-attachments/assets/877897cc-20d3-4f18-a723-9c48f18f6e4e" />
 
 |항목|설명|
@@ -106,7 +106,7 @@
 |**TIME**|프로세스에 의해 사용된 CPU 시간|
 |**CMD**|실행된 프로세스의 이름 또는 실행된 명령|
 
-2. ps aux
+2. **ps aux**
 + BSD 문법으로 모든 프로세스를 출력하고 싶다면 ps aux 명령어를 사용하면 됨
 + ps -ef 와 차이점은 출력 형식이 다름
 <img width="735" height="416" alt="img1 daumcdn" src="https://github.com/user-attachments/assets/f95f51ce-f855-4c79-95e0-5a6fa4cdd53e" />
@@ -124,3 +124,31 @@
 |**START**|프로세스가 실행된 시간|
 |**TIME**|총 CPU 사용 시간|
 |**COMMNAND**|프로세스의 실행 명령|
+
+# JOBS 명령어
++ **현재 세션에서 실행 중이거나 중단된 작업 목록을 출력**
++ **jobs [옵션]**
+
+|항목|설명|
+|--|----|
+|**-l**|각 작업의 프로세스 ID(PID)도 함께 출력|
+|**-p**|각 작업의 프로세스 ID만 출력|
+|**-n**|가장 최근에 상태가 변경된 작업만 출력|
+|**-n**|실행 중(Running)인 작업만 출력|
+|**-s**|일시중지된 작업만 출력|
+
+### 예시
+1. ping 명령어를 백그라운드로 실행한 뒤, jobs 명령어를 사용해 상태를 확인하는 과정
+<img width="596" height="136" alt="image" src="https://github.com/user-attachments/assets/f5c96321-3b33-46d2-94b1-739301018d54" />
++ ping 명령어가 백그라운드에서 실행되며, 작업 번호는 1번, 프로세스 ID는 12345이다. jobs 명령어를 입력하면, 현재 실행 중인 작업 목록이 표시됨
+
+2. 다른 명령어를 실행하고, 중간에 일시 중지한 후 작업 목록을 다시 확인
+<img width="595" height="181" alt="image" src="https://github.com/user-attachments/assets/7bc7c9b3-b4e8-4675-a962-1e35835039d9" />
++ Ctrl + Z로 sleep 명령어를 일시 중지. 이때 jobs 명령어를 사용하면 두 개의 작업이 표시됨. 첫 번째 작업은 ping 명령어로 Running(실행 중) 상태이며, 두 번째 작업은 sleep 명령어로 Stopped(중지) 상태
+
+### 작업 제어 관련 명령어
+|항목|설명|
+|--|----|
+|**fg**|백그라운드 또는 일시 중지된 작업을 포그라운드로 전환|
+|**bg**|일시 중지된 작업을 백그라운드에서 다시 실행|
+|**kill**|특정 작업을 종료특정 작업을 종료|
